@@ -1,10 +1,30 @@
 import { Inter } from "next/font/google";
 import Head from "next/head";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import Header from "./components/Layout/Header";
+import AddTask from "./components/Tasks/AddTask";
+import { TaskTypes } from "./components/Tasks/Task";
+import TaskList from "./components/Tasks/TaskList";
+import Container from "./components/UI/Container";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [tasks, setTasks] = useState<TaskTypes[]>([]);
+
+  useEffect(() => {
+    const storedTasks = localStorage.getItem("tasks");
+    if (storedTasks) {
+      setTasks(JSON.parse(storedTasks));
+    }
+  }, []);
+
+  const setNewTask = (task: TaskTypes) => {
+    localStorage.setItem("tasks", JSON.stringify([...tasks, task]));
+    return setTasks([...tasks, task]);
+  };
+
   return (
     <>
       <Head>
@@ -13,7 +33,13 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="w-full mx-auto p-10"></main>
+      <Header />
+      <main className="w-10/12 mx-auto">
+        <Container>
+          <AddTask onAddTask={setNewTask} />
+        </Container>
+        <TaskList Tasks={tasks} />
+      </main>
     </>
   );
 }
