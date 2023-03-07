@@ -20,22 +20,22 @@ const Task = (props: TaskTypes) => {
           : props.priority === 1
           ? "bg-warning"
           : "bg-error"
-      } text-primary-content bg-gradient-to-r from-${
+      } text-primary-content bg-gradient-to-r ${
         props.priority === 0
-          ? "bg-success"
+          ? "from-bg-success"
           : props.priority === 1
-          ? "bg-warning"
-          : "bg-error"
+          ? "from-bg-warning"
+          : "from-bg-error"
       } to-base-100`}
     >
       <div className="card-body">
         <div
           className={`badge shadow-lg badge-${
             props.priority === 0
-              ? "bg-success"
+              ? "badge-bg-success"
               : props.priority === 1
-              ? "bg-warning"
-              : "bg-error"
+              ? "badge-bg-warning"
+              : "badge-bg-error"
           }  gap-2 self-end`}
         >
           {props.priority === 0
