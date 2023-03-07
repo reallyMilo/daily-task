@@ -12,11 +12,15 @@ const TaskList = (props: {
     props.onDelete(id);
   };
 
-  const sortTasks = (tasks: TaskTypes[]) => {
-    return tasks.sort((a, b) => b.priority - a.priority);
+  const sortTasks = (Tasks: TaskTypes[]) => {
+    if (Tasks) {
+      return Tasks.sort((a, b) => b.priority - a.priority);
+    } else {
+      return [];
+    }
   };
 
-  if (props.Tasks.length === 0) {
+  if (props.Tasks && props.Tasks.length === 0) {
     return (
       <Container className="mt-9 flex gap-3 items-center">
         <InformationCircleIcon className="w-6 h-6 inline-block" />
@@ -30,17 +34,18 @@ const TaskList = (props: {
   return (
     <Container className="mt-9">
       <Grid>
-        {sortTasks(props.Tasks).map((task) => {
-          return (
-            <Task
-              onDelete={deleteTask}
-              id={task.id}
-              key={task.id}
-              description={task.description}
-              priority={task.priority}
-            />
-          );
-        })}
+        {sortTasks &&
+          sortTasks(props.Tasks).map((task) => {
+            return (
+              <Task
+                onDelete={deleteTask}
+                id={task.id}
+                key={task.id}
+                description={task.description}
+                priority={task.priority}
+              />
+            );
+          })}
       </Grid>
     </Container>
   );

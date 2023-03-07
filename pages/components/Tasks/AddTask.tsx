@@ -32,6 +32,7 @@ const AddTask = (props: { onAddTask: (TaskData: TaskTypes) => void }) => {
   const submitHandler = (event: React.FormEvent) => {
     event.preventDefault();
     const TaskData: TaskTypes = {
+      onDelete(id: string) {},
       id: uuidv4(),
       description: task,
       priority: priority,
