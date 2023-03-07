@@ -14,28 +14,28 @@ const Task = (props: TaskTypes) => {
   };
   return (
     <div
-      className={`card w-full bg-${
+      className={`card w-full ${
         props.priority === 0
-          ? "success"
+          ? "bg-success"
           : props.priority === 1
-          ? "warning"
-          : "error"
+          ? "bg-warning"
+          : "bg-error"
       } text-primary-content bg-gradient-to-r from-${
         props.priority === 0
-          ? "success"
+          ? "bg-success"
           : props.priority === 1
-          ? "warning"
-          : "error"
+          ? "bg-warning"
+          : "bg-error"
       } to-base-100`}
     >
       <div className="card-body">
         <div
           className={`badge shadow-lg badge-${
             props.priority === 0
-              ? "success"
+              ? "bg-success"
               : props.priority === 1
-              ? "warning"
-              : "error"
+              ? "bg-warning"
+              : "bg-error"
           }  gap-2 self-end`}
         >
           {props.priority === 0
