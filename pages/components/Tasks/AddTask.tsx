@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { TaskTypes } from "./Task";
-const AddTask = (props) => {
+const AddTask = (props: { onAddTask: (TaskData: TaskTypes) => void }) => {
   const [task, setTask] = useState("");
   const [priority, setPriority] = useState(0);
   const [validTask, setValidTask] = useState(false);
@@ -31,13 +31,13 @@ const AddTask = (props) => {
 
   const submitHandler = (event: React.FormEvent) => {
     event.preventDefault();
-
     const TaskData: TaskTypes = {
       id: uuidv4(),
       description: task,
       priority: priority,
     };
     props.onAddTask(TaskData);
+    setTask("");
   };
   return (
     <form onSubmit={submitHandler}>
@@ -46,6 +46,7 @@ const AddTask = (props) => {
         name="task-description"
         className="textarea textarea-primary w-full my-4"
         placeholder="Description"
+        value={task}
         onChange={taskDescriptionHandler}
       ></textarea>
       <label htmlFor="task-priority">Task Priority</label>

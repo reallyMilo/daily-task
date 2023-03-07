@@ -4,7 +4,18 @@ import Container from "../UI/Container";
 import Grid from "../UI/Grid";
 import Task, { TaskTypes } from "./Task";
 
-const TaskList = (props: { Tasks: TaskTypes[] }) => {
+const TaskList = (props: {
+  Tasks: TaskTypes[];
+  onDelete: (id: string) => void;
+}) => {
+  const deleteTask = (id: string) => {
+    props.onDelete(id);
+  };
+
+  const sortTasks = (tasks: TaskTypes[]) => {
+    return tasks.sort((a, b) => b.priority - a.priority);
+  };
+
   if (props.Tasks.length === 0) {
     return (
       <Container className="mt-9 flex gap-3 items-center">
@@ -19,9 +30,10 @@ const TaskList = (props: { Tasks: TaskTypes[] }) => {
   return (
     <Container className="mt-9">
       <Grid>
-        {props.Tasks.map((task) => {
+        {sortTasks(props.Tasks).map((task) => {
           return (
             <Task
+              onDelete={deleteTask}
               id={task.id}
               key={task.id}
               description={task.description}

@@ -6,6 +6,7 @@ import Header from "./components/Layout/Header";
 import AddTask from "./components/Tasks/AddTask";
 import { TaskTypes } from "./components/Tasks/Task";
 import TaskList from "./components/Tasks/TaskList";
+import Timer from "./components/Timer/Timer";
 import Container from "./components/UI/Container";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -25,6 +26,12 @@ export default function Home() {
     return setTasks([...tasks, task]);
   };
 
+  const deleteHandler = (id: string) => {
+    const updatedTasks = tasks.filter((task) => task.id !== id);
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    setTasks(updatedTasks);
+  };
+
   return (
     <>
       <Head>
@@ -37,8 +44,9 @@ export default function Home() {
       <main className="w-10/12 mx-auto">
         <Container>
           <AddTask onAddTask={setNewTask} />
+          <Timer />
         </Container>
-        <TaskList Tasks={tasks} />
+        <TaskList Tasks={tasks} onDelete={deleteHandler} />
       </main>
     </>
   );
